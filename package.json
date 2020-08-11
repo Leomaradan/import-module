@@ -1,0 +1,7 @@
+{
+  "name": "import-module",
+  "version": "0.0.1",
+  "description": "Import module function that can import ESM, AMD, CommonJS or UMD modules",
+  "main": "main.js",
+  "license": "MIT"
+}
