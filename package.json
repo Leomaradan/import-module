@@ -1,7 +1,41 @@
 {
   "name": "import-module",
-  "version": "0.0.1",
+  "version": "1.0.0-RC1",
   "description": "Import module function that can import ESM, AMD, CommonJS or UMD modules",
-  "main": "main.js",
-  "license": "MIT"
+  "main": "lib-commonjs/index.js",
+  "module": "lib/index.js",
+  "types": "type/index.d.ts",
+  "typescript": {
+    "definition": "type/index.d.ts"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Léo Maradan",
+    "url": "https://github.com/leomaradan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leomaradan/import-module.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leomaradan/import-module/issues"
+  },
+  "homepage": "https://github.com/leomaradan/import-module",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c --watch",
+    "dev:build": "rollup demo/index.js --file demo/main.js --watch",
+    "dev:serve": "serve demo -n",
+    "dev": "npm-run-all -p -r watch dev:build dev:serve"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^5.0.2",
+    "@types/node": "^10.17.28",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.23.1",
+    "rollup-plugin-dts": "^1.4.10",
+    "serve": "^11.3.2",
+    "tslib": "^2.0.1",
+    "typescript": "^3.9.7"
+  }
 }
