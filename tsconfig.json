@@ -1,0 +1,8 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "strict": true,
+    "module": "ESNext",
+    "target": "ES2017",
+  }
+}

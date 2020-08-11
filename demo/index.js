@@ -1,4 +1,4 @@
-import { importModule } from './importModule.js';
+import { importModule } from '../lib/index.js';
 
 (async () => {
   let exportedAMD = await importModule("./amd.js");
@@ -19,3 +19,11 @@ import { importModule } from './importModule.js';
   let exportedUMD = await importModule("./umd.js");
   console.log({ exportedUMD });
 })();
+
+(async () => {
+  // will fail
+  let pluginTypescript = await importModule("@rollup/plugin-typescript");
+  console.log({ pluginTypescript });
+})();
+
+console.log({ context });

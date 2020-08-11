@@ -1,8 +1,18 @@
-export default class Queue {
-  static queue = [];
-  static pendingPromise = false;
 
-  static enqueue(promise) {
+type PromiseCallback = () => Promise<any>;
+
+interface IPromiseQueue {
+  promise: PromiseCallback;
+  resolve(value?: any): any;
+  reject(reason?: any): void
+}
+
+export default class Queue {
+
+  private static queue: IPromiseQueue[] = [];
+  private static workingOnPromise = false;
+
+  static enqueue(promise: () => Promise<any>): Promise<any> {
     return new Promise((resolve, reject) => {
       this.queue.push({
         promise,

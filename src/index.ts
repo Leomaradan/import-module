@@ -1,14 +1,21 @@
 import Queue from "./queue";
 
-async function importModulePromise(path) {
+declare global {
+  interface Window {
+    define: any;
+    module: any;
+    exports: any;
+  }
+}
+
+async function importModulePromise(loadPath: string) {
 
   let _module = window.module;
   let _exports = window.exports;
   let _define = window.define;
   let defined = {};
 
-
-  function defineLoader(_requirment, factory) {
+  function defineLoader(_requirment: any, factory: () => any) {
     const result = factory();
     if (typeof result === 'function') {
       defined = { default: result(), ...result.prototype };
@@ -24,13 +31,13 @@ async function importModulePromise(path) {
 
   window.define = defineLoader;
 
-  const exported = await import(path);
+  const exported = await import(loadPath);
 
-  let mergeExports = { ...module.exports, ...exported, ...exports, ...defined };
+  let mergeExports = { ...window.module.exports, ...exported, ...window.exports, ...defined };
 
-  window.module = _module; // restore global
-  window.define = _define; // restore global
-  window.exports = _exports; // restore global
+  window.module = _module;
+  window.define = _define;
+  window.exports = _exports;
 
 
   return mergeExports;
@@ -38,6 +45,6 @@ async function importModulePromise(path) {
 
 
 
-const importModule = (path) => {
+export const importModule = (path: string) => {
   return Queue.enqueue(() => importModulePromise(path));
 };
